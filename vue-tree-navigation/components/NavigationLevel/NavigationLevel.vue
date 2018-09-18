@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import NavigationToggle from '../NavigationToggle/NavigationToggle.vue';
-import NavigationItem from '../NavigationItem/NavigationItem.vue';
+  import NavigationToggle from '../NavigationToggle/NavigationToggle.vue';
+  import NavigationItem from '../NavigationItem/NavigationItem.vue';
 
 export default {
   data() {

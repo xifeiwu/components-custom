@@ -1,54 +1,36 @@
-import NavigationLevel from '../NavigationLevel/NavigationLevel.vue';
-import NavigationItem from '../NavigationItem/NavigationItem.vue';
+/**
+ * First character should be #.
+ */
+export const sanitizeElement = element => {
+  if (element === undefined || element === '') {
+    return element;
+  }
 
-import { sanitizeElement, sanitizeRoute } from '../utils';
+  if (element[0] !== '#') {
+    element = '#' + element;
+  }
+
+  return element;
+};
 
 /**
- * Recursive function.
- * One call generates one level of the tree.
+ * First character should be backslash.
+ * Last character shouldn't be backslash.
  */
-export const generateLevel = (
-  createElement,
-  items,
-  level,
-  defaultOpenLevel
-) => {
-  const children = [];
+export const sanitizeRoute = route => {
+  if (route === undefined) {
+    return;
+  }
 
-  items.forEach(item => {
-    if (item.hasOwnProperty('children')) {
-      const navLevel = createElement(
-        NavigationLevel,
-        {
-          props: {
-            parentItem: item,
-            level,
-            defaultOpenLevel,
-          },
-        },
-        [
-          ...generateLevel(
-            createElement,
-            item.children,
-            level + 1,
-            defaultOpenLevel
-          ),
-        ]
-      );
-      children.push(createElement('li', [navLevel]));
-    } else {
-      console.log(`level: ${level}`);
-      const navItem = createElement(NavigationItem, {
-        props: {
-          item,
-          level
-        },
-      });
-      children.push(createElement('li', [navItem]));
-    }
-  });
+  if (route[0] !== '/') {
+    route = '/' + route;
+  }
 
-  return children;
+  if (route[route.length - 1] === '/') {
+    route = route.slice(0, -1);
+  }
+
+  return route;
 };
 
 /**
