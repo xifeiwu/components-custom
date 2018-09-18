@@ -9,6 +9,7 @@
       <NavigationItem
         :item="parentItem"
         :level="level"
+        :store="store"
         @click.native="onItemClick" />
     </div>
 
@@ -41,6 +42,9 @@ export default {
       type: Number,
       required: true,
     },
+    store: {
+      type: Object
+    }
   },
   computed: {
     classes() {
@@ -60,36 +64,37 @@ export default {
       }
     },
     renderLevelAsOpen() {
-      if (this.defaultOpenLevel >= this.level) {
-        return true;
-      }
-
-      let currentUrl;
-      if (this.$router !== undefined) {
-        currentUrl = this.$route.path + this.$route.hash;
-      } else {
-        currentUrl = window.location.pathname + window.location.hash;
-      }
-
-      if (
-        this.parentItem.meta.target !== '' &&
-        currentUrl.includes(this.parentItem.meta.target)
-      ) {
-        return true;
-      }
-
-      for (let i = 0; i < this.parentItem.children.length; i++) {
-        let child = this.parentItem.children[i];
-
-        if (
-          child.meta.target !== '' &&
-          currentUrl.includes(child.meta.target)
-        ) {
-          return true;
-        }
-      }
-
-      return false;
+      return true;
+//      if (this.defaultOpenLevel >= this.level) {
+//        return true;
+//      }
+//
+//      let currentUrl;
+//      if (this.$router !== undefined) {
+//        currentUrl = this.$route.path + this.$route.hash;
+//      } else {
+//        currentUrl = window.location.pathname + window.location.hash;
+//      }
+//
+//      if (
+//        this.parentItem.meta.target !== '' &&
+//        currentUrl.includes(this.parentItem.meta.target)
+//      ) {
+//        return true;
+//      }
+//
+//      for (let i = 0; i < this.parentItem.children.length; i++) {
+//        let child = this.parentItem.children[i];
+//
+//        if (
+//          child.meta.target !== '' &&
+//          currentUrl.includes(child.meta.target)
+//        ) {
+//          return true;
+//        }
+//      }
+//
+//      return false;
     },
   },
   components: {

@@ -1,4 +1,6 @@
+<script  type="text/babel">
 import { insertMetadataToItems } from './core';
+
 
 import NavigationItem from '../NavigationItem/NavigationItem.vue';
 import NavigationLevel from '../NavigationLevel/NavigationLevel.vue';
@@ -11,7 +13,8 @@ export const generateLevel = (
   createElement,
   items,
   level,
-  defaultOpenLevel
+  defaultOpenLevel,
+  store
 ) => {
   const children = [];
 
@@ -24,6 +27,7 @@ export const generateLevel = (
             parentItem: item,
             level,
             defaultOpenLevel,
+            store
           },
         },
         [
@@ -31,7 +35,8 @@ export const generateLevel = (
             createElement,
             item.children,
             level + 1,
-            defaultOpenLevel
+            defaultOpenLevel,
+            store
           ),
         ]
       );
@@ -40,7 +45,8 @@ export const generateLevel = (
       const navItem = createElement(NavigationItem, {
         props: {
           item,
-          level
+          level,
+          store
         },
       });
       children.push(createElement('li', [navItem]));
@@ -51,8 +57,13 @@ export const generateLevel = (
 };
 
 import './TreeNavigation.scss';
+import Store from '../../store';
 
 const TreeNavigation = {
+  created() {
+    this.store = new Store(this);
+    console.log(this.store);
+  },
   props: {
     items: {
       type: Array,
@@ -62,6 +73,11 @@ const TreeNavigation = {
       type: Number,
       default: 0,
     },
+  },
+  watch: {
+    'store.states.activeItem': function (value) {
+      console.log(value);
+    }
   },
 
   computed: {
@@ -81,19 +97,13 @@ const TreeNavigation = {
       'ul',
       generateLevel(
         createElement,
+        // self.items,
         self.itemsWithMetadata,
         level,
-        self.defaultOpenLevel
+        self.defaultOpenLevel,
+        this.store
       )
     );
-
-    // const level0 = createElement(
-    //   'div',
-    //   {
-    //     class: ['NavigationLevel', 'NavigationLevel--level-0'],
-    //   },
-    //   [tree]
-    // );
 
     const treeNavigation = createElement(
       'div',
@@ -108,3 +118,4 @@ const TreeNavigation = {
 };
 
 export default TreeNavigation;
+</script>

@@ -49,6 +49,10 @@ export const insertMetadataToItems = (items, parent) => {
   return items;
 };
 
+export const generateId = (item, parent) => {
+
+};
+
 /**
  * Return item metadata object: { path: ..., target: ... }
  */
