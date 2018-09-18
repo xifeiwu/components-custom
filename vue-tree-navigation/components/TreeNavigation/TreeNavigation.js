@@ -37,20 +37,20 @@ const TreeNavigation = {
       )
     );
 
-    const level0 = createElement(
-      'div',
-      {
-        class: ['NavigationLevel', 'NavigationLevel--level-0'],
-      },
-      [tree]
-    );
+    // const level0 = createElement(
+    //   'div',
+    //   {
+    //     class: ['NavigationLevel', 'NavigationLevel--level-0'],
+    //   },
+    //   [tree]
+    // );
 
     const treeNavigation = createElement(
       'div',
       {
         class: 'TreeNavigation',
       },
-      [level0]
+      [tree]
     );
 
     return treeNavigation;

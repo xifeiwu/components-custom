@@ -35,6 +35,7 @@ export default {
   props: {
     item: Object,
     required: true,
+    level: Number
   },
   methods: {
     isActive() {
@@ -74,6 +75,7 @@ export default {
     classes() {
       return {
         'NavigationItem--active': this.active,
+        [`NavigationItem--level-${this.level}`]: true,
       };
     },
   },
@@ -96,7 +98,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-@import './NavigationItem.scss';
-</style>

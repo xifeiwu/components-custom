@@ -8,6 +8,7 @@
         @click.native="onToggleClick" />
       <NavigationItem
         :item="parentItem"
+        :level="level"
         @click.native="onItemClick" />
     </div>
 

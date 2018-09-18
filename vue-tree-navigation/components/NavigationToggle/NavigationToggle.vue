@@ -1,10 +1,6 @@
 <template>
   <span
-    class="NavigationToggle"
-    :class="{ 'NavigationToggle--closed': !this.open }">
-    <span
-      class="NavigationToggle__icon"
-      :class="{ 'NavigationToggle__icon--closed': !this.open }"></span>
+    class="NavigationToggle" :class="{ 'NavigationToggle--closed': !this.open }">
   </span>
 </template>
 
@@ -19,7 +15,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-@import './NavigationToggle.scss';
-</style>

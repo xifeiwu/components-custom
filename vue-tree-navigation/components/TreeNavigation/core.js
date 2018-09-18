@@ -35,15 +35,15 @@ export const generateLevel = (
           ),
         ]
       );
-
       children.push(createElement('li', [navLevel]));
     } else {
+      console.log(`level: ${level}`);
       const navItem = createElement(NavigationItem, {
         props: {
           item,
+          level
         },
       });
-
       children.push(createElement('li', [navItem]));
     }
   });

@@ -1,7 +1,62 @@
+.NavigationItem {
+  font-size: 14px;
+  margin-left: 14px;
+  line-height: 1.5;
+  display: inline-block;
+  span {
+    cursor: pointer;
+  }
+  &--level-1 {
+    font-size: 18px;
+  }
+  &--level-2 {
+    font-size: 16px;
+  }
+  &--level-3 {
+    font-size: 14px;
+  }
+  &--level-4 {
+    font-size: 14px;
+  }
+  &--level-5 {
+  }
+}
+
 .NavigationLevel {
+  ul {
+    padding: 0px 0px 0px 16px;
+    margin: 0;
+    list-style-type: none;
+  }
+
+  li {
+  }
+
   &--closed {
     ul {
       display: none;
+    }
+  }
+
+  .NavigationLevel__parent {
+    position: relative;
+    .NavigationToggle {
+      position: absolute;
+      left: 0px;
+    }
+  }
+
+  .NavigationToggle {
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, -50%) rotate(45deg);
+    cursor: pointer;
+    display:      inline-block;
+    padding:      3px;
+    border:       solid #000;
+    border-width: 0 2px 2px 0;
+    &--closed {
+      transform: translate(0%, -50%) rotate(-45deg);
     }
   }
 }
