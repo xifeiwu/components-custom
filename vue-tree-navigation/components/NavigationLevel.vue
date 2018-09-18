@@ -19,9 +19,75 @@
   </div>
 </template>
 
+<style lang="scss">
+  .NavigationItem {
+    font-size: 14px;
+    margin-left: 14px;
+    line-height: 1.5;
+    display: inline-block;
+    &--active {
+      background-color: #409EFF;
+      color: white;
+    }
+
+    //overflow: hidden;
+    text-overflow: ellipsis;
+    span {
+      cursor: pointer;
+    }
+    &--level-1 {
+      font-size: 18px;
+    }
+    &--level-2 {
+      font-size: 16px;
+    }
+    &--level-3 {
+      font-size: 14px;
+    }
+    &--level-4 {
+      font-size: 14px;
+    }
+    &--level-5 {
+    }
+  }
+
+  .NavigationLevel {
+    ul {
+      padding: 0px 0px 0px 16px;
+      margin: 0;
+      list-style-type: none;
+    }
+
+    li {
+    }
+
+    &--closed {
+      ul {
+        display: none;
+      }
+    }
+
+    .NavigationLevel__parent {
+      display: flex;
+      .NavigationToggle {
+      }
+      .NavigationItem {
+        flex: 1;
+        margin-left: 0px;
+      }
+    }
+    .NavigationLevel__children {
+      margin-left: 14px;
+      .NavigationItem {
+        //margin-left: 0px;
+      }
+    }
+  }
+
+</style>
 <script>
-  import NavigationToggle from '../NavigationToggle/NavigationToggle.vue';
-  import NavigationItem from '../NavigationItem/NavigationItem.vue';
+  import NavigationToggle from './NavigationToggle.vue';
+  import NavigationItem from './NavigationItem.vue';
 
 export default {
   data() {
@@ -107,6 +173,3 @@ export default {
 };
 </script>
 
-<style lang="scss">
-@import './NavigationLevel.scss';
-</style>

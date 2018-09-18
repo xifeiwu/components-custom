@@ -1,4 +1,4 @@
-import TreeNavigation from './components/TreeNavigation/TreeNavigation.vue';
+import TreeNavigation from './components/TreeNavigation.vue';
 
 module.exports = {
   install: function(Vue, options) {

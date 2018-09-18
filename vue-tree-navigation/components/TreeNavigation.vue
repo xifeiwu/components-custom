@@ -1,9 +1,16 @@
-<script  type="text/babel">
-import { insertMetadataToItems } from './core';
+<style>
+  .TreeNavigation {
+    display: inline-block;
+    padding: 0;
+    margin:  0;
+  }
+</style>
+<script type="text/babel">
+import { insertMetadataToItems } from './utils';
 
 
-import NavigationItem from '../NavigationItem/NavigationItem.vue';
-import NavigationLevel from '../NavigationLevel/NavigationLevel.vue';
+import NavigationItem from './NavigationItem.vue';
+import NavigationLevel from './NavigationLevel.vue';
 
 /**
  * Recursive function.
@@ -56,8 +63,7 @@ export const generateLevel = (
   return children;
 };
 
-import './TreeNavigation.scss';
-import Store from '../../store';
+import Store from './store';
 
 const TreeNavigation = {
   created() {
