@@ -1,4 +1,3 @@
-// import TreeNavigation from './components/TreeNavigation.vue';
 import TreeNavigation from './components/tree.vue';
 
 module.exports = {

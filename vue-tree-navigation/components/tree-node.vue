@@ -88,15 +88,11 @@
   }
 </style>
 <script>
-  import NavigationToggle from './NavigationToggle.vue';
-  import NavigationItem from './NavigationItem.vue';
   import CollapseTransition from './collapse-transition';
 
   export default {
     components: {
       CollapseTransition,
-      NavigationItem,
-      NavigationToggle,
     },
     data() {
       return {

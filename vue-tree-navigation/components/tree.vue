@@ -13,8 +13,6 @@
 </style>
 <script type="text/babel">
   import { insertMetadataToItems } from './utils';
-//  import NavigationItem from './NavigationItem.vue';
-//  import NavigationLevel from './NavigationLevel.vue';
   import TreeNode from './tree-node.vue';
 
   import Store from './store';
