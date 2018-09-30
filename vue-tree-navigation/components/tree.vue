@@ -4,6 +4,12 @@
     padding: 0;
     margin:  0;
   }
+  .collapse-transition {
+    transition: 0.3s height ease-in-out, 0.3s padding-top ease-in-out, 0.3s padding-bottom ease-in-out;
+  }
+  .horizontal-collapse-transition {
+    transition: 0.3s width ease-in-out, 0.3s padding-left ease-in-out, 0.3s padding-right ease-in-out;
+  }
 </style>
 <script type="text/babel">
   import { insertMetadataToItems } from './utils';

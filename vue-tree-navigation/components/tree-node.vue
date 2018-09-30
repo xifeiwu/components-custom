@@ -7,9 +7,11 @@
       </div>
       <div class="tree-node__label" @click="handleClick">{{item.name}}</div>
     </div>
-    <ul :class="{'tree-node__children': true, 'is-expand': this.isOpen}" v-if="!isLeaf">
-      <slot></slot>
-    </ul>
+    <collapse-transition v-if="!isLeaf">
+      <ul :class="{'tree-node__children': true, 'is-expand': this.isOpen}" v-if="this.isOpen">
+        <slot></slot>
+      </ul>
+    </collapse-transition>
   </div>
 </template>
 
@@ -19,6 +21,7 @@
     text-overflow: ellipsis;
 
     .tree-node__content {
+      border-left: 5px solid transparent;
       &.level-1 {
         font-size: 18px;
         padding-left: 0px;
@@ -44,7 +47,7 @@
       &.active {
         /*background-color: #409EFF;*/
         /*color: white;*/
-        border-left: 3px solid #409EFF;
+        border-left-color: #409EFF;
       }
 
       &.is-leaf {
@@ -55,16 +58,17 @@
 
       display: flex;
       .tree-node__expand-icon {
-        width: 15px;
+        /*width: 15px;*/
         position: relative;
         cursor: pointer;
+        padding: 2px 5px;
         .arrow {
-          position: absolute;
-          top: 50%;
+          /*position: absolute;*/
+          /*top: 50%;*/
           transform: translate(0%, -50%) rotate(45deg);
           display:      inline-block;
           padding:      3px;
-          border:       solid #000;
+          border:       solid #42b883;
           border-width: 0 2px 2px 0;
         }
         &__closed {
@@ -77,17 +81,23 @@
 
     .tree-node__children {
       display: none;
-      &.is-expand {
+      /*&.is-expand {*/
         display: block;
-      }
+      /*}*/
     }
   }
 </style>
 <script>
   import NavigationToggle from './NavigationToggle.vue';
   import NavigationItem from './NavigationItem.vue';
+  import CollapseTransition from './collapse-transition';
 
   export default {
+    components: {
+      CollapseTransition,
+      NavigationItem,
+      NavigationToggle,
+    },
     data() {
       return {
         isOpen: null,
@@ -160,12 +170,8 @@
         this.store.commit('setActiveItem', this.item);
       }
     },
-    components: {
-      NavigationItem,
-      NavigationToggle,
-    },
     mounted() {
-      this.isOpen = this.renderLevelAsOpen();
+//      this.isOpen = this.renderLevelAsOpen();
     },
   };
 </script>
