@@ -44,6 +44,10 @@
         required: true
       },
       scale: [Number, String],
+      size: {
+        type: [Number, String],
+        default: 16
+      },
       spin: Boolean,
       flip: {
         validator: function (val) {
@@ -55,14 +59,19 @@
       currentIndex: String
     },
     computed: {
-      normalizedScale() {
-        let scale = this.scale;
-        scale = typeof scale === 'undefined' ? 1 : Number(scale);
-        if (isNaN(scale) || scale <= 0) {
-          console.warn(`Invalid prop: prop "scale" should be a number over 0.`, this);
-          return 1
-        }
-        return scale
+//      normalizedScale() {
+//        let scale = this.scale;
+//        scale = typeof scale === 'undefined' ? 1 : Number(scale);
+//        if (isNaN(scale) || scale <= 0) {
+//          console.warn(`Invalid prop: prop "scale" should be a number over 0.`, this);
+//          return 1
+//        }
+//        return scale
+//      },
+      normalizedSize() {
+        let size = this.size;
+        size = typeof size === 'undefined' ? 16 : Number(size);
+        return size;
       },
       clazz() {
         return {
@@ -87,10 +96,12 @@
         return `0 0 ${this.icon.width} ${this.icon.height}`
       },
       width() {
-        return this.icon.width / 112 * this.normalizedScale
+        return this.normalizedSize;
+//        return this.icon.width * this.normalizedScale
       },
       height() {
-        return this.icon.height / 112 * this.normalizedScale
+        return this.normalizedSize;
+//        return this.icon.height * this.normalizedScale
       },
       style() {
         if (this.normalizedScale === 1) {
