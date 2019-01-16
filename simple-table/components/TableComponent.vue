@@ -33,7 +33,7 @@
                 <tbody :class="fullTableBodyClass">
                 <table-row
                         v-for="(row, index) in displayedRows"
-                        :key="row.vueTableComponentInternalRowId"
+                        :key="row.index"
                         :row="row"
                         :columns="columns"
                         :index="index"
@@ -258,7 +258,7 @@
 
                 this.rows = data
                     .map(rowData => {
-                        rowData.vueTableComponentInternalRowId = rowId++;
+                        rowData.index = rowId++;
                         return rowData;
                     })
                     .map(rowData => new Row(rowData, this.columns));
