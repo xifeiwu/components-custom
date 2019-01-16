@@ -32,11 +32,13 @@
                 </thead>
                 <tbody :class="fullTableBodyClass">
                 <table-row
-                        v-for="row in displayedRows"
+                        v-for="(row, index) in displayedRows"
                         :key="row.vueTableComponentInternalRowId"
                         :row="row"
                         :columns="columns"
-						@rowClick="emitRowClick"
+                        :index="index"
+                        @row-event="handleRowEvent"
+                        :class="{'is-hover': hoverIndex === index, 'is-active': activeIndex === index}"
                 ></table-row>
                 </tbody>
                 <tfoot>
@@ -76,6 +78,9 @@
         },
 
         props: {
+          activeIndex: {
+            default: null
+          },
             data: { default: () => [], type: [Array, Function] },
 
             showFilter: { default: true },
@@ -96,6 +101,7 @@
         },
 
         data: () => ({
+          hoverIndex: null,
             columns: [],
             rows: [],
             filter: '',
@@ -124,7 +130,6 @@
 
             this.columns = columnComponents.map(
                 column => {
-                    console.log(column)
                     return new Column(column)
                 }
             );
@@ -319,10 +324,17 @@
                 this.saveState();
             },
 
-			emitRowClick(row) {
-				this.$emit('rowClick', row);
-				this.$emit('row-click', row);
-			}
+          handleRowEvent(action, $event, row, index) {
+            switch (action) {
+              case 'mouse-enter':
+                this.hoverIndex = index;
+                break;
+              case 'mouse-leave':
+                this.hoverIndex = null;
+                break;
+            }
+            this.$emit('row-event',  action, $event, row, index);
+          }
         },
     };
 </script>
