@@ -10,7 +10,6 @@
 .table-component {
   display: flex;
   flex-direction: column;
-  margin: 4em 0;
 }
 
 .table-component__filter {
@@ -70,7 +69,7 @@
 
 .table-component__table th,
 .table-component__table td {
-  padding: .75em 1.25em;
+  padding: 3px 6px;
   vertical-align: top;
   text-align: left;
 }
@@ -107,18 +106,18 @@
   user-select: none;
 }
 
-.table-component__th--sort-asc:after,
-.table-component__th--sort-desc:after {
-  position: absolute;
-  left: .25em;
+.table-component__th--sort-asc:before,
+.table-component__th--sort-desc:before {
+  /*position: absolute;*/
+  left: 0px;
   display: inline-block;
   color: #bbb;
 }
 
-.table-component__th--sort-asc:after {
+.table-component__th--sort-asc:before {
   content: '↑';
 }
 
-.table-component__th--sort-desc:after {
+.table-component__th--sort-desc:before {
   content: '↓';
 }

@@ -2,7 +2,7 @@ import TableComponent from './components/TableComponent';
 import TableColumn from './components/TableColumn';
 import Pagination from './components/Pagination';
 import { mergeSettings } from './settings';
-import './table-component.css';
+import './table-component.scss';
 
 export default {
     install(Vue, options = {}) {
