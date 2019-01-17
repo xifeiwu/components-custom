@@ -1,5 +1,7 @@
 <template>
-  <tr @click="handleRowEvent('click', $event)" @mouseenter="handleRowEvent('mouse-enter', $event)" @mouseleave="handleRowEvent('mouse-leave', $event)">
+  <tr @click="handleRowEvent('click', $event)"
+      @mouseenter="handleRowEvent('mouse-enter', $event)"
+      @mouseleave="handleRowEvent('mouse-leave', $event)">
     <table-cell v-for="column in visibleColumns" :row="row" :column="column" :key="column.id"></table-cell>
   </tr>
 </template>

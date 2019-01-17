@@ -3,10 +3,9 @@
     <div v-if="showFilter && filterableColumnExists" class="table-component__filter">
       <input :class="fullFilterInputClass" type="text" v-model="filter" :placeholder="filterPlaceholder">
       <a
-                    v-if="filter"
-                    @click="filter = ''"
-                    class="table-component__filter__clear"
-            >×</a>
+        v-if="filter"
+        @click="filter = ''"
+        class="table-component__filter__clear">×</a>
     </div>
     <div class="table-component__table-wrapper">
       <table :class="fullTableClass">
@@ -37,7 +36,6 @@
 </template>
 <script>
 import Column from '../classes/Column';
-import expiringStorage from '../expiring-storage';
 import Row from '../classes/Row';
 import TableColumnHeader from './TableColumnHeader';
 import TableRow from './TableRow';
@@ -107,30 +105,29 @@ export default {
     },
   },
 
-  data: () => ({
-    hoverIndex: null,
-    columns: [],
-    rows: [],
-    filter: '',
-    sort: {
-      fieldName: '',
-      order: '',
-    },
-    pagination: null,
+  data() {
+    return {
+      hoverIndex: null,
+      columns: [],
+      rows: [],
+      filter: '',
+      sort: {
+        fieldName: '',
+        order: '',
+      },
+      pagination: null,
 
-    localSettings: {},
-  }),
+      localSettings: {},
+    }
+  },
 
   created() {
     this.sort.fieldName = this.sortBy;
     this.sort.order = this.sortOrder;
 
-    this.restoreState();
   },
 
   async mounted() {
-    //            console.log(this);
-    //            console.log(this.$slots.default);
     const columnComponents = this.$slots.default
       .filter(column => column.componentInstance)
       .map(column => column.componentInstance);
@@ -155,18 +152,8 @@ export default {
   },
 
   watch: {
-    filter() {
-      if (!this.usesLocalData) {
-        this.mapDataToRows();
-      }
-
-      this.saveState();
-    },
-
     data() {
-      if (this.usesLocalData) {
-        this.mapDataToRows();
-      }
+      this.mapDataToRows();
     },
   },
 
@@ -196,15 +183,7 @@ export default {
         (this.sort.order === 'asc' ? '(ascending)' : '(descending)');
     },
 
-    usesLocalData() {
-      return Array.isArray(this.data);
-    },
-
     displayedRows() {
-      if (!this.usesLocalData) {
-        return this.sortedRows;
-      }
-
       if (!this.showFilter) {
         return this.sortedRows;
       }
@@ -217,10 +196,6 @@ export default {
     },
 
     sortedRows() {
-      if (!this.usesLocalData) {
-        return this.rows;
-      }
-
       if (this.sort.fieldName === '') {
         return this.rows;
       }
@@ -242,11 +217,6 @@ export default {
       return this.columns.filter(c => c.isFilterable()).length > 0;
     },
 
-    storageKey() {
-      return this.cacheKey ?
-        `vue-table-component.${this.cacheKey}` :
-        `vue-table-component.${window.location.host}${window.location.pathname}${this.cacheKey}`;
-    },
   },
 
   methods: {
@@ -257,9 +227,7 @@ export default {
     },
 
     async mapDataToRows() {
-      const data = this.usesLocalData ?
-        this.prepareLocalData() :
-        await this.fetchServerData();
+      const data = this.data;
 
       let rowId = 0;
 
@@ -269,26 +237,6 @@ export default {
           return rowData;
         })
         .map(rowData => new Row(rowData, this.columns));
-    },
-
-    prepareLocalData() {
-      this.pagination = null;
-
-      return this.data;
-    },
-
-    async fetchServerData() {
-      const page = this.pagination && this.pagination.currentPage || 1;
-
-      const response = await this.data({
-        filter: this.filter,
-        sort: this.sort,
-        page: page,
-      });
-
-      this.pagination = response.pagination;
-
-      return response.data;
     },
 
     async refresh() {
@@ -303,32 +251,10 @@ export default {
         this.sort.order = (this.sort.order === 'asc' ? 'desc' : 'asc');
       }
 
-      if (!this.usesLocalData) {
-        this.mapDataToRows();
-      }
-
-      this.saveState();
     },
 
     getColumn(columnName) {
       return this.columns.find(column => column.show === columnName);
-    },
-
-    saveState() {
-      expiringStorage.set(this.storageKey, pick(this.$data, ['filter', 'sort']), this.cacheLifetime);
-    },
-
-    restoreState() {
-      const previousState = expiringStorage.get(this.storageKey);
-
-      if (previousState === null) {
-        return;
-      }
-
-      this.sort = previousState.sort;
-      this.filter = previousState.filter;
-
-      this.saveState();
     },
 
     handleRowEvent(action, $event, row, index) {
