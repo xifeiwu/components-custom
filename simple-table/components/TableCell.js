@@ -1,22 +1,24 @@
 export default {
-    functional: true,
+  functional: true,
 
-    props: ['column', 'row'],
+  props: ['column', 'row'],
 
-    render(createElement, { props }) {
-        const data = {};
+  render(createElement, {
+    props
+  }) {
+    const data = {};
 
-        if (props.column.cellClass) {
-            data.class = props.column.cellClass;
-        }
+    if (props.column.cellClass) {
+      data.class = props.column.cellClass;
+    }
 
-        if (props.column.template) {
-            return createElement('td', data, props.column.template(props.row.data));
-        }
+    if (props.column.template) {
+      return createElement('td', data, props.column.template(props.row.data));
+    }
 
-        data.domProps = {};
-        data.domProps.innerHTML = props.column.formatter(props.row.getValue(props.column.show), props.row.data);
+    data.domProps = {};
+    data.domProps.innerHTML = props.column.formatter(props.row.getValue(props.column.show), props.row.data);
 
-        return createElement('td', data);
-    },
+    return createElement('td', data);
+  },
 };
