@@ -10,6 +10,7 @@
 .table-component {
   display: flex;
   flex-direction: column;
+  font-size: 14px;
 }
 
 .table-component__filter {
@@ -45,7 +46,6 @@
 
 .table-component__table-wrapper {
   overflow-x: auto;
-  margin: 1em 0;
   width: 100%;
   border: solid 1px #ddd;
   border-bottom: none;
