@@ -24,7 +24,7 @@ export default {
     },
 
     sortable: {
-      default: true,
+      default: false,
       type: Boolean
     },
     sortBy: {
