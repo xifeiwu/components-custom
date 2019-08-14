@@ -85,15 +85,18 @@ export default {
       })
     },
 
-    onTransitionEnd () {
+    onTransitionEnd (evt) {
+      if (evt.target !== this.$el) {
+        return;
+      }
       if (this.active) {
-        this.style = {}
+        this.style = {};
         this.$emit('open-end')
       } else {
         this.style = {
           height: '0',
           overflow: 'hidden'
-        }
+        };
         this.$emit('close-end')
       }
     }
